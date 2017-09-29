@@ -1,36 +1,28 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from "vue-router";
+import Routers from './router/router.js';
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
+import axios from 'axios';
 
+Vue.prototype.$ajax = axios;
 //开启debug模式
 Vue.config.debug = true;
+
 Vue.use(VueRouter);
+Vue.use(iView);
 
-// 创建一个路由器实例
-// 并且配置路由规则
-const router = new VueRouter({
-  //mode: 'history',
-  base: __dirname,
-  routes: [
-    {
-      path: '/one',
-      component: r =>require.ensure([], () => r(require('./page/one.vue')), 'one')
-    },
-    {
-      path: '/two',
-      component: r => require.ensure([], () => r(require('./page/two.vue')), 'two')
-    },
-    /*{
-      path: '/three',
-      component : { template: '<div><h2>我是第 3 个子页面</h2></div>' }
-    }*/
-  ]
-})
+const RouterConfig={
+    routes:Routers
+}
+const router=new VueRouter(RouterConfig);
+/*
+const router = new VueRouter()
+*/
 
-// 现在我们可以启动应用了！
-// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
-const app = new Vue({
+new Vue({
+  el:'#app',
   router: router,
   render: h => h(App)
-  // components: { firstcomponent, secondcomponent }
-}).$mount('#app')
+})

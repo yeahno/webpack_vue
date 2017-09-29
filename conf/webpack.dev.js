@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack=require('webpack');
 
 module.exports = merge(common.webpack, {
-    devtool: "eval",
+    devtool: "eval-source-map",
     //watch:true,
     devServer: {
         contentBase: common.project.distDir,
